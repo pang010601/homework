@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+        <title> 코카콜라 제로 판매</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+
+        <style>
+            * {
+                font-family: 'Nanum Gothic', sans-serif;
+            }
+
+            .wrap {
+                width: 500px;
+                margin: auto;
+            }
+
+            .saleitem {
+                width: 400px;
+                height: 300px;
+                background-image: url("https://welcomeindiaking.ch/wp-content/uploads/2019/05/coca-cola.jpg");
+                background-position: center;
+                background-size: cover;
+            }
+
+            .information h3,
+            .information h5 {
+                display: inline;
+            }
+
+            .order {
+                text-align: center;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div class="wrap">
+            <br>
+            <br>
+            <div class="saleitem"></div>
+            <p>
+
+            </p>
+            <div class="information">
+                <h3>코카콜라 제로 판매합니다</h3>
+                &nbsp;
+                <h5> 가격 : 1200원/개 </h5>
+            </div>
+            <p><h6> 코카콜라 제로를 판매합니다. 맛있어요! </h6></p>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">주문자 이름</span>
+                </div>
+                <input type="text" class="form-control">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">수량</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>수량을 선택하세요</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">주소</span>
+                </div>
+                <input type="text" class="form-control">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">연락처</span>
+                </div>
+                <input type="text" class="form-control">
+            </div>
+            <div class="order">
+                <button type="button" class="btn btn-info">주문하기</button>
+            </div>
+        </div>
+    </body>
+
+</html>
