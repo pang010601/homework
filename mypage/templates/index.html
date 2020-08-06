@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html la<!doctype html>
+<html lang="ko">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+        <title> 코카콜라 제로 판매</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+
+        <style>
+            * {
+                font-family: 'Nanum Gothic', sans-serif;
+            }
+
+            .wrap {
+                width: 500px;
+                margin: auto;
+            }
+
+
+            .saleitem {
+                width: 400px;
+                height: 300px;
+                background-image: url("https://welcomeindiaking.ch/wp-content/uploads/2019/05/coca-cola.jpg");
+                background-position: center;
+                background-size: cover;
+            }
+
+            .product-name {
+                color: crimson;
+            }
+
+            .dollar {
+                color: brown;
+            }
+
+            .information h3,
+            .information h5 {
+                display: inline;
+            }
+
+            .order-button {
+                text-align: center;
+            }
+
+            .floating {
+                position: fixed;
+                top: 200px;
+                right: 5%;
+                margin-right: 40px;
+                z-index: 99;
+            }
+
+            .floatingtext {
+                position: fixed;
+                top: 276px;
+                right: 6.5%;
+                margin-right: 40px;
+                z-index: 99;
+            }
+
+            .floatingpic {
+                position: fixed;
+                top: 325px;
+                right: 2%;
+                margin-right: 40px;
+                z-index: 99;
+            }
+
+            .floatingtext2 {
+                position: fixed;
+                top: 420px;
+                right: 3%;
+                margin-right: 40px;
+                text-align: center;
+                z-index: 99;
+            }
+
+            .text3 {
+                position: fixed;
+                top: 340px;
+                right: 5%;
+                margin-right: 40px;
+                text-align: center;
+                z-index: 99;
+                color: darkred;
+            }
+
+            .table {
+                width: 700px;
+                margin: auto;
+            }
+
+        </style>
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "https://api.manana.kr/exchange/rate.json",
+                    data: {},
+                    success: function (response) {
+                        let dollarrate = response[1]['rate']
+                        $('#dollar-info').text(dollarrate);
+                    }
+                })
+                orderlist();
+            });
+
+            function orderlist() {
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "/order",
+                        data: {},
+                        success: function (response) {
+                            let orders = response[1]['orders'];
+                            for(let i = 0 ; i < orders.length; i++) {
+                                let name = orders[i]['name'];
+                                let number = orders[i]['number'];
+                                let address = orders[i]['address'];
+                                let phone = orders[i]['phone'];
+
+                                let temp_html = <tr>
+                                                   <th scope="row">${name}</th>
+                                                   <td>${number}</td>
+                                                   <td>${address}</td>
+                                                   <td>${phone}</td>
+                                                 </tr>
+                                $('#order_list').append(temp_html);
+                            }
+                        }
+                    })
+                });
+
+            }
+
+            function order() {
+                let name = $("#order-name").val();
+                let number = $("#order-number").val();
+                let address = $("#order-address").val();
+                let phone = $("#order-phone").val();
+
+                if (name == "") {
+                    alert('성함을 입력해주세요');
+                } else if (number == "-- 수량 선택 --") {
+                    alert('수량을 선택해주세요');
+                } else if (address == "") {
+                    alert('주소를 입력해주세요');
+                } else if (phone == "") {
+                    alert('연락처를 입력해주세요');
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/order",
+                        data: {name_give: name, number_give: number, address_give: address, phone_give: phone},
+                        success: function (response) {
+                            if (response["result"] == "success") {
+                                alert(response["msg"]);
+                                window.location.reload();
+                            }
+                        }
+                    })
+                }
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <div class="wrap">
+            <br>
+            <br>
+            <div class="saleitem"></div>
+            <p>
+
+            </p>
+            <div class="information">
+                <h3 class="product-name">코카콜라 제로 판매합니다</h3>
+                <h5> 가격 : $1/개 </h5>
+                <p><h6> 코카콜라 제로를 판매합니다. 맛있어요! </h6></p>
+                <p class="dollar">
+                    달러-원 환율 : <span class="dollar" id="dollar-info"> 1200 </span>
+                </p>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">주문자 이름</span>
+                </div>
+                <input type="text" class="form-control" id="order-name">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">수량</label>
+                </div>
+                <select class="custom-select" id="order-number">
+                    <option selected>-- 수량 선택 --</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">주소</span>
+                </div>
+                <input type="text" class="form-control" id="order-address">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">연락처</span>
+                </div>
+                <input type="text" class="form-control" id="order-phone">
+            </div>
+            <div class="order-button">
+                <button onclick="order()" type="button" class="btn btn-info">주문하기</button>
+            </div>
+        </div>
+        <div class="wrap2" id="wrap2">
+            <div class="floating">
+                <a href="https://open.kakao.com/o/sEtz9Tmc" target="_blank">
+                    <img src="https://lh3.googleusercontent.com/Ob9Ys8yKMeyKzZvl3cB9JNSTui1lJwjSKD60IVYnlvU2DsahysGENJE-txiRIW9_72Vd"
+                         width="76px" height="76px">
+                </a>
+            </div>
+            <div class="floatingtext" style="font-size:12px;">
+                카톡문의
+            </div>
+            <div class="floatingpic">
+                <a href="https://www.opengallery.co.kr/" target="_blank">
+                    <img src="https://benefits.fastfive.co.kr/wp-content/uploads/2020/03/CI_signature_full_color600x500-600x500.png"
+                         width="130px" height="130px">
+                </a>
+            </div>
+            <div class="floatingtext2" style="font-size:13px;">
+                <div> 그림 한 점으로</div>
+                <div> 우리집 분위기 바꾸기!</div>
+                <div class="text3"> 여기를 클릭!</div>
+            </div>
+            <p>
+
+            </p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">주문자 이름</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">주소</th>
+                    <th scope="col">연락처</th>
+                </tr>
+                </thead>
+                <tbody id="order_list">
+                </tbody>
+            </table>
+        </div>
+    </body>
+
+</html>
